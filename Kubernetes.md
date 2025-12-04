@@ -83,16 +83,45 @@ Deployment (yaml file) -> Replica Sets -> Creation of pod
 
 **Service :**
 
+
 A Service in Kubernetes is an abstract way to expose a group of Pods as a single, stable network endpoint.
 It provides a permanent IP address, DNS name, and load balancing to ensure reliable access to Pods whose IPs constantly change.
+Service works on the concept of labels and selectors
 
 -> You have these advantages of service : Load Balancing , Service Discovery
 -> A service can expose your application and can expose to outside world.
 It contains three types :
 
-1. Cluster IP
-2. Nodeport Mode
-3. Load Balancer
+**1. Cluster IP :**
+
+ClusterIP is the default service type.
+It makes your application accessible only inside the Kubernetes cluster.
+
+👉 Meaning:
+
+Gets an internal IP
+
+Other pods inside the cluster can access it
+
+Not reachable from your laptop or internet
+
+**2. Nodeport Mode :**
+
+NodePort exposes your application outside the cluster by opening a port on every node.
+
+👉 Meaning:
+
+Kubernetes assigns a port like 30080 on every node.
+   
+**3. Load Balancer :**
+
+LoadBalancer exposes your application to the internet by creating a cloud load balancer (AWS ELB, GCP LB, Azure LB).
+👉 Meaning:
+
+You get a public IP
+
+Users anywhere can access your application
+
 
 **Service Discovery :**
 
@@ -101,6 +130,20 @@ The ability of applications (Pods) to automatically find and communicate with ot
 
 -> Labels and selectors will be attached as the metadata in the yaml file so when we deploy the application using deployment.yaml file replica set will be created and create the pods with these labels.So when one pod goes down it will automatically create the pod with the same label.
 
+
+**Practical :**
+
+1. Build the image using docker build
+2. create a deployment file (yaml file) and labels and selectors also update the container image and container port also
+   kubectl apply -f deployment.yml
+   kubetcl get pods
+   kubectl get pods -o wide
+   kubectl get pods -v=7
+3. Now create a service yaml file of one of the types (Cluster IP,Nodeport,Load Balancer)
+   kubectl apply -f service.yml
+   kubectl get svc
+   To edit the service
+   kubectl edit svc
 
 
 
