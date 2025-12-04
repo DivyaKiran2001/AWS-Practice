@@ -81,6 +81,31 @@ The Cloud Controller Manager is responsible for integrating Kubernetes with clou
 
 Deployment (yaml file) -> Replica Sets -> Creation of pod
 
+**Service :**
+
+A Service in Kubernetes is an abstract way to expose a group of Pods as a single, stable network endpoint.
+It provides a permanent IP address, DNS name, and load balancing to ensure reliable access to Pods whose IPs constantly change.
+
+-> You have these advantages of service : Load Balancing , Service Discovery
+-> A service can expose your application and can expose to outside world.
+It contains three types :
+
+1. Cluster IP
+2. Nodeport Mode
+3. Load Balancer
+
+**Service Discovery :**
+
+The ability of applications (Pods) to automatically find and communicate with other applications (Services) inside the cluster without knowing their IP addresses.
+**using labels and selectors**
+
+-> Labels and selectors will be attached as the metadata in the yaml file so when we deploy the application using deployment.yaml file replica set will be created and create the pods with these labels.So when one pod goes down it will automatically create the pod with the same label.
+
+
+
+
+
+
 
 
 
