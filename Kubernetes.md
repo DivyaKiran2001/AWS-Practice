@@ -77,6 +77,10 @@ A Container Runtime is the software responsible for running containers inside yo
 
 The Cloud Controller Manager is responsible for integrating Kubernetes with cloud providers (AWS, GCP, Azure, etc.)
 
+**Deployemnt :**
+
+Deployment (yaml file) -> Replica Sets -> Creation of pod
+
 
 
 
