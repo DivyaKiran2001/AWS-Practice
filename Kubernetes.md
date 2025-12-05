@@ -145,11 +145,120 @@ The ability of applications (Pods) to automatically find and communicate with ot
    To edit the service
    kubectl edit svc
 
+**Problems without ingress:**
+
+1. Enterprise and TLS Load balancing capabilities
+
+Imagine you have 10 microservices.
+
+If you expose each with a LoadBalancer:
+
+10 Services
+
+10 Cloud Load Balancers
+
+💸 Expensive
+
+Messy networking
+
+**👉 Ingress fixes it:**
+
+Ingress lets all apps share one external IP.
+
+**Ingress :**
+
+Ingress is a smart entry point for your Kubernetes cluster that controls how external users reach your internal services using ONE public IP and ONE domain.
+
+🧪 Practical Example of How Ingress Works
+
+You have these services:
+
+frontend-service
+
+login-service
+
+order-service
+
+Without Ingress
+
+Users need:
+
+http://34.10.22.11 (frontend)
+http://35.22.11.77/login (login)
+http://34.55.22.99/order (orders)
 
 
+Messy and expensive.
+
+With Ingress
+
+You get ONE IP:
+
+http://34.120.10.5
 
 
+Ingress routes traffic:
 
+URL	Goes To
+/	frontend-service
+/login	login-service
+/orders	order-service
+
+Users see a clean website like:
+
+https://myshop.com
+https://myshop.com/login
+https://myshop.com/orders
+
+
+This is EXACTLY how real websites work.
+
+🔧 What an Ingress Looks Like (Simple Example)
+
+Here is what an Ingress rule might look like (no need to memorize, just understand):
+
+rules:
+  - host: myshop.com
+    http:
+      paths:
+      - path: /
+        backend: frontend-service
+      - path: /login
+        backend: login-service
+      - path: /orders
+        backend: order-service
+
+**Meaning:**
+
+When user goes to / → send to frontend
+
+When user goes to /login → send to login service
+
+When user goes to /orders → send to order service
+
+Practical :
+
+1. Build the image using docker build
+2. create a deployment file (yaml file) and labels and selectors also update the container image and container port also
+   kubectl apply -f deployment.yml
+   kubetcl get pods
+   kubectl get pods -o wide
+   kubectl get pods -v=7
+3. Now create a service yaml file of one of the types (Cluster IP,Nodeport,Load Balancer)
+   kubectl apply -f service.yml
+   kubectl get svc
+   To edit the service
+   kubectl edit svc
+4. Aftet these steps create a ingress.yml file  using the below command
+   kubectl apply -f ingress.yml
+   kubectl get ingress
+5. You have to also create a ingress controller
+   **Ingress controller :** An Ingress Controller is the actual software inside Kubernetes that reads your Ingress rules and makes them work.
+   -> First you have to install a ingress controller using the below command in the case of minikube
+   > minikube addons enable ingress
+
+**Ingress = Rules
+Ingress Controller = The system that enforces those rules**
 
 
 
